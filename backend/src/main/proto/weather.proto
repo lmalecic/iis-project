@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package weather.v1;
+
+option java_package = "com.lmalecic.iis.backend.weather.generated";
+option java_multiple_files = true;
+
+service WeatherService {
+  rpc GetTemperatures(GetTemperaturesRequest) returns (GetTemperaturesResponse);
+}
+
+message GetTemperaturesRequest {
+  string city_query = 1;
+}
+
+message GetTemperaturesResponse {
+  repeated TemperatureObservation observations = 1;
+}
+
+message TemperatureObservation {
+  string city_name = 1;
+  optional double temperature_celsius = 2;
+}

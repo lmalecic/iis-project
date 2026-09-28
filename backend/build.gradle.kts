@@ -34,7 +34,9 @@ dependencies {
     implementation("org.flywaydb:flyway-database-postgresql")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("tools.jackson.module:jackson-module-kotlin")
+    implementation("jakarta.xml.bind:jakarta.xml.bind-api")
     runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("org.glassfish.jaxb:jaxb-runtime")
     testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
     testImplementation("org.springframework.boot:spring-boot-starter-flyway-test")
     testImplementation("org.springframework.boot:spring-boot-starter-graphql-test")
@@ -46,6 +48,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-webservices-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(kotlin("test"))
 }
 
 kotlin {
@@ -62,4 +65,10 @@ allOpen {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+protobuf {
+    plugins {
+        create("grpc")
+    }
 }
