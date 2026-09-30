@@ -1,0 +1,15 @@
+package com.jakewharton.mosaic.tty.terminal
+
+import assertk.assertThat
+import assertk.assertions.isEqualTo
+import kotlin.test.Test
+import kotlinx.io.bytestring.encodeToByteString
+
+class TtyTerminalTest {
+	@Test fun worksEvenWithoutReply() = terminalTest {
+		val teardown = withTerminal { setup ->
+			assertThat(setup).isEqualTo((bracketedPasteEnable + "${CSI}0c" + modifyOtherKeysEnable).encodeToByteString())
+		}
+		assertThat(teardown).isEqualTo((bracketedPasteDisable + modifyOtherKeysReset).encodeToByteString())
+	}
+}

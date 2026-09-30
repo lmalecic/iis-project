@@ -1,0 +1,33 @@
+// Klib ABI Dump
+// Targets: [linuxArm64, linuxX64, mingwX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <com.jakewharton.mosaic:mosaic-tty-terminal>
+final class com.jakewharton.mosaic.tty.terminal/EofException : kotlin/RuntimeException { // com.jakewharton.mosaic.tty.terminal/EofException|null[0]
+    constructor <init>() // com.jakewharton.mosaic.tty.terminal/EofException.<init>|<init>(){}[0]
+}
+
+final class com.jakewharton.mosaic.tty.terminal/EventParser { // com.jakewharton.mosaic.tty.terminal/EventParser|null[0]
+    constructor <init>(com.jakewharton.mosaic.tty/Tty) // com.jakewharton.mosaic.tty.terminal/EventParser.<init>|<init>(com.jakewharton.mosaic.tty.Tty){}[0]
+
+    final var bracketedPasteEnabled // com.jakewharton.mosaic.tty.terminal/EventParser.bracketedPasteEnabled|{}bracketedPasteEnabled[0]
+        final fun <get-bracketedPasteEnabled>(): kotlin/Boolean // com.jakewharton.mosaic.tty.terminal/EventParser.bracketedPasteEnabled.<get-bracketedPasteEnabled>|<get-bracketedPasteEnabled>(){}[0]
+        final fun <set-bracketedPasteEnabled>(kotlin/Boolean) // com.jakewharton.mosaic.tty.terminal/EventParser.bracketedPasteEnabled.<set-bracketedPasteEnabled>|<set-bracketedPasteEnabled>(kotlin.Boolean){}[0]
+    final var kittyDisambiguateEscapeCodes // com.jakewharton.mosaic.tty.terminal/EventParser.kittyDisambiguateEscapeCodes|{}kittyDisambiguateEscapeCodes[0]
+        final fun <get-kittyDisambiguateEscapeCodes>(): kotlin/Boolean // com.jakewharton.mosaic.tty.terminal/EventParser.kittyDisambiguateEscapeCodes.<get-kittyDisambiguateEscapeCodes>|<get-kittyDisambiguateEscapeCodes>(){}[0]
+        final fun <set-kittyDisambiguateEscapeCodes>(kotlin/Boolean) // com.jakewharton.mosaic.tty.terminal/EventParser.kittyDisambiguateEscapeCodes.<set-kittyDisambiguateEscapeCodes>|<set-kittyDisambiguateEscapeCodes>(kotlin.Boolean){}[0]
+    final var xtermExtendedUtf8Mouse // com.jakewharton.mosaic.tty.terminal/EventParser.xtermExtendedUtf8Mouse|{}xtermExtendedUtf8Mouse[0]
+        final fun <get-xtermExtendedUtf8Mouse>(): kotlin/Boolean // com.jakewharton.mosaic.tty.terminal/EventParser.xtermExtendedUtf8Mouse.<get-xtermExtendedUtf8Mouse>|<get-xtermExtendedUtf8Mouse>(){}[0]
+        final fun <set-xtermExtendedUtf8Mouse>(kotlin/Boolean) // com.jakewharton.mosaic.tty.terminal/EventParser.xtermExtendedUtf8Mouse.<set-xtermExtendedUtf8Mouse>|<set-xtermExtendedUtf8Mouse>(kotlin.Boolean){}[0]
+
+    final fun copyBuffer(): kotlin/ByteArray // com.jakewharton.mosaic.tty.terminal/EventParser.copyBuffer|copyBuffer(){}[0]
+    final fun next(): com.jakewharton.mosaic.terminal/Event? // com.jakewharton.mosaic.tty.terminal/EventParser.next|next(){}[0]
+    final fun nextDebug(): com.jakewharton.mosaic.terminal/DebugEvent? // com.jakewharton.mosaic.tty.terminal/EventParser.nextDebug|nextDebug(){}[0]
+}
+
+final suspend fun (com.jakewharton.mosaic.tty/Tty).com.jakewharton.mosaic.tty.terminal/asTerminalIn(kotlinx.coroutines/CoroutineScope, com.jakewharton.mosaic.terminal/MouseTracking, com.jakewharton.mosaic.terminal/TerminalScreen, kotlin/Boolean = ...): com.jakewharton.mosaic.terminal/Terminal // com.jakewharton.mosaic.tty.terminal/asTerminalIn|asTerminalIn@com.jakewharton.mosaic.tty.Tty(kotlinx.coroutines.CoroutineScope;com.jakewharton.mosaic.terminal.MouseTracking;com.jakewharton.mosaic.terminal.TerminalScreen;kotlin.Boolean){}[0]
+final suspend fun (com.jakewharton.mosaic.tty/Tty).com.jakewharton.mosaic.tty.terminal/asTerminalIn(kotlinx.coroutines/CoroutineScope, com.jakewharton.mosaic.terminal/MouseTracking, kotlin/Boolean = ...): com.jakewharton.mosaic.terminal/Terminal // com.jakewharton.mosaic.tty.terminal/asTerminalIn|asTerminalIn@com.jakewharton.mosaic.tty.Tty(kotlinx.coroutines.CoroutineScope;com.jakewharton.mosaic.terminal.MouseTracking;kotlin.Boolean){}[0]
+final suspend fun (com.jakewharton.mosaic.tty/Tty).com.jakewharton.mosaic.tty.terminal/asTerminalIn(kotlinx.coroutines/CoroutineScope, kotlin/Boolean = ...): com.jakewharton.mosaic.terminal/Terminal // com.jakewharton.mosaic.tty.terminal/asTerminalIn|asTerminalIn@com.jakewharton.mosaic.tty.Tty(kotlinx.coroutines.CoroutineScope;kotlin.Boolean){}[0]

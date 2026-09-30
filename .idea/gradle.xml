@@ -12,6 +12,33 @@
                   <project path="$PROJECT_DIR$/buildSrc" />
                 </projects>
               </build>
+              <build path="$PROJECT_DIR$/mosaic-stream29" name="mosaic">
+                <projects>
+                  <project path="$PROJECT_DIR$/mosaic-stream29" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/mosaic-animation" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/mosaic-runtime" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/mosaic-terminal" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/mosaic-testing" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/mosaic-tty" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/mosaic-tty-terminal" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/samples" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/samples/counter" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/samples/demo" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/samples/java-tty" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/samples/jest" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/samples/robot" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/samples/rrtop" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/samples/snake" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/tools" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/tools/raw-mode-echo" />
+                  <project path="$PROJECT_DIR$/mosaic-stream29/tools/terminal-capability" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/mosaic-stream29/build-support" name="build-support">
+                <projects>
+                  <project path="$PROJECT_DIR$/mosaic-stream29/build-support" />
+                </projects>
+              </build>
             </builds>
           </compositeBuild>
         </compositeConfiguration>
@@ -22,6 +49,25 @@
             <option value="$PROJECT_DIR$/backend" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/client" />
+            <option value="$PROJECT_DIR$/mosaic-stream29" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/build-support" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/mosaic-animation" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/mosaic-runtime" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/mosaic-terminal" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/mosaic-testing" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/mosaic-tty" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/mosaic-tty-terminal" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/samples" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/samples/counter" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/samples/demo" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/samples/java-tty" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/samples/jest" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/samples/robot" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/samples/rrtop" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/samples/snake" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/tools" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/tools/raw-mode-echo" />
+            <option value="$PROJECT_DIR$/mosaic-stream29/tools/terminal-capability" />
             <option value="$PROJECT_DIR$/protocol-contracts" />
           </set>
         </option>
