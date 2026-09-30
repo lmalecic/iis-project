@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package weather.v1;
 
-option java_package = "com.lmalecic.iis.backend.weather.generated";
+option java_package = "com.lmalecic.iis.contracts.weather";
 option java_multiple_files = true;
 
 service WeatherService {

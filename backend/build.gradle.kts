@@ -1,10 +1,11 @@
 plugins {
-    kotlin("jvm") version "2.3.21"
+    id("buildsrc.convention.kotlin-jvm")
+
     kotlin("plugin.spring") version "2.3.21"
+    kotlin("plugin.jpa") version "2.3.21"
+
     id("org.springframework.boot") version "4.1.1"
     id("io.spring.dependency-management") version "1.1.7"
-    id("com.google.protobuf") version "0.9.6"
-    kotlin("plugin.jpa") version "2.3.21"
 }
 
 group = "com.lmalecic.iis"
@@ -22,6 +23,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":protocol-contracts"))
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-flyway")
     implementation("org.springframework.boot:spring-boot-starter-graphql")
@@ -65,10 +67,4 @@ allOpen {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-protobuf {
-    plugins {
-        create("grpc")
-    }
 }

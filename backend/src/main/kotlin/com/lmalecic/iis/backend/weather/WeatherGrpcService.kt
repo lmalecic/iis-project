@@ -1,9 +1,9 @@
 package com.lmalecic.iis.backend.weather
 
-import com.lmalecic.iis.backend.weather.generated.GetTemperaturesRequest
-import com.lmalecic.iis.backend.weather.generated.GetTemperaturesResponse
-import com.lmalecic.iis.backend.weather.generated.TemperatureObservation
-import com.lmalecic.iis.backend.weather.generated.WeatherServiceGrpc
+import com.lmalecic.iis.contracts.weather.GetTemperaturesRequest
+import com.lmalecic.iis.contracts.weather.GetTemperaturesResponse
+import com.lmalecic.iis.contracts.weather.TemperatureObservation
+import com.lmalecic.iis.contracts.weather.WeatherServiceGrpc
 import io.grpc.Status
 import io.grpc.stub.StreamObserver
 import org.slf4j.LoggerFactory
