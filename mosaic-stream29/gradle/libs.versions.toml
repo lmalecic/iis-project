@@ -1,0 +1,45 @@
+[versions]
+kotlin = "2.3.21"
+kotlinx-coroutines = "1.11.0"
+unicode-kotlin = "0.1.1"
+
+[libraries]
+kotlin-plugin-core = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-plugin-compose = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+
+kotlinx-io-core = "org.jetbrains.kotlinx:kotlinx-io-core:0.9.1"
+
+androidx-annotation = "androidx.annotation:annotation:1.10.0"
+androidx-collection = "androidx.collection:collection:1.6.0"
+androidx-compose-runtime = "androidx.compose.runtime:runtime:1.11.4"
+androidx-lifecycle-compose = "androidx.lifecycle:lifecycle-runtime-compose:2.11.0"
+
+mavenPublishGradlePlugin = "com.vanniktech:gradle-maven-publish-plugin:0.37.0"
+dokkaGradlePlugin = "org.jetbrains.dokka:dokka-gradle-plugin:2.2.0"
+citeGradlePlugin = "com.jakewharton.cite:cite-gradle-plugin:0.8.0"
+pokoGradlePlugin = "dev.drewhamilton.poko:poko-gradle-plugin:0.22.1"
+binaryCompatibilityValidatorGradlePlugin = "org.jetbrains.kotlinx:binary-compatibility-validator:0.18.1"
+cklibGradlePlugin = "co.touchlab:cklib-gradle-plugin:0.3.5"
+jextractGradlePlugin = "de.infolektuell:gradle-plugin-jextract:1.0.0"
+testDistributionGradlePlugin = "com.jakewharton.gradle:test-distribution-gradle-plugin:0.3.0"
+spotlessGradlePlugin = "com.diffplug.spotless:spotless-plugin-gradle:8.8.0"
+burstGradlePlugin = "app.cash.burst:burst-gradle-plugin:2.12.2"
+
+ktlint-core = "com.pinterest.ktlint:ktlint-cli:1.8.0"
+ktlint-composeRules = "io.nlopez.compose.rules:ktlint:0.6.2"
+
+clikt = "com.github.ajalt.clikt:clikt:5.1.0"
+codepoints = "de.cketti.unicode:kotlin-codepoints:0.11.0"
+unicode-segmentation-kotlin = { module = "io.github.kotlinmania:unicode-segmentation-kotlin", version.ref = "unicode-kotlin" }
+unicode-width-kotlin = { module = "io.github.kotlinmania:unicode-width-kotlin", version.ref = "unicode-kotlin" }
+finalizationHook = "com.jakewharton.finalization:finalization-hook:0.1.0"
+apache-compress = "org.apache.commons:commons-compress:1.28.0"
+
+junit4 = "junit:junit:4.13.2"
+assertk = "com.willowtreeapps.assertk:assertk:0.28.1"

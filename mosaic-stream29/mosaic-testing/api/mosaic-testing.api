@@ -1,0 +1,74 @@
+public final class com/jakewharton/mosaic/testing/MosaicSnapshots : com/jakewharton/mosaic/testing/SnapshotStrategy {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/jakewharton/mosaic/testing/MosaicSnapshots;
+	public fun create (Lcom/jakewharton/mosaic/Mosaic;)Lcom/jakewharton/mosaic/Mosaic;
+	public synthetic fun create (Lcom/jakewharton/mosaic/Mosaic;)Ljava/lang/Object;
+}
+
+public abstract interface class com/jakewharton/mosaic/testing/SnapshotStrategy {
+	public abstract fun create (Lcom/jakewharton/mosaic/Mosaic;)Ljava/lang/Object;
+}
+
+public abstract interface class com/jakewharton/mosaic/testing/TestMosaic : com/jakewharton/mosaic/Mosaic {
+	public abstract fun awaitSnapshot-VtjQ1oo (JLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun awaitSnapshot-VtjQ1oo$default (Lcom/jakewharton/mosaic/testing/TestMosaic;JLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public abstract fun getState ()Lcom/jakewharton/mosaic/testing/TestTerminal$State;
+	public abstract fun sendKeyEvent (Lcom/jakewharton/mosaic/terminal/KeyboardEvent;)V
+	public abstract fun sendMouseEvent (Lcom/jakewharton/mosaic/terminal/MouseEvent;)V
+	public abstract fun sendPasteEvent (Lcom/jakewharton/mosaic/terminal/PasteEvent;)V
+	public abstract fun setContentAndSnapshot (Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+}
+
+public final class com/jakewharton/mosaic/testing/TestMosaicKt {
+	public static final fun runMosaicTest (Lcom/jakewharton/mosaic/terminal/Terminal$Capabilities;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun runMosaicTest (Lcom/jakewharton/mosaic/testing/SnapshotStrategy;Lcom/jakewharton/mosaic/terminal/Terminal$Capabilities;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun runMosaicTest$default (Lcom/jakewharton/mosaic/terminal/Terminal$Capabilities;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun runMosaicTest$default (Lcom/jakewharton/mosaic/testing/SnapshotStrategy;Lcom/jakewharton/mosaic/terminal/Terminal$Capabilities;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class com/jakewharton/mosaic/testing/TestTerminal : com/jakewharton/mosaic/terminal/Terminal {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;ZLcom/jakewharton/mosaic/terminal/Terminal$Capabilities;)V
+	public synthetic fun <init> (Ljava/lang/String;ZLcom/jakewharton/mosaic/terminal/Terminal$Capabilities;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun close ()V
+	public fun getCapabilities ()Lcom/jakewharton/mosaic/terminal/Terminal$Capabilities;
+	public fun getEvents ()Lkotlinx/coroutines/channels/Channel;
+	public synthetic fun getEvents ()Lkotlinx/coroutines/channels/ReceiveChannel;
+	public fun getInteractive ()Z
+	public fun getName ()Ljava/lang/String;
+	public synthetic fun getState ()Lcom/jakewharton/mosaic/terminal/Terminal$State;
+	public fun getState ()Lcom/jakewharton/mosaic/testing/TestTerminal$State;
+}
+
+public final class com/jakewharton/mosaic/testing/TestTerminal$Capabilities : com/jakewharton/mosaic/terminal/Terminal$Capabilities {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Lcom/jakewharton/mosaic/terminal/AnsiLevel;ZZZZZZZZZZZZ)V
+	public synthetic fun <init> (Lcom/jakewharton/mosaic/terminal/AnsiLevel;ZZZZZZZZZZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getAnsiLevel ()Lcom/jakewharton/mosaic/terminal/AnsiLevel;
+	public fun getCursorVisibility ()Z
+	public fun getFocusEvents ()Z
+	public fun getInBandResizeEvents ()Z
+	public fun getKittyGraphics ()Z
+	public fun getKittyKeyboard ()Z
+	public fun getKittyNotifications ()Z
+	public fun getKittyPointerShape ()Z
+	public fun getKittyTextSizingScale ()Z
+	public fun getKittyTextSizingWidth ()Z
+	public fun getKittyUnderline ()Z
+	public fun getSynchronizedOutput ()Z
+	public fun getThemeEvents ()Z
+}
+
+public final class com/jakewharton/mosaic/testing/TestTerminal$State : com/jakewharton/mosaic/terminal/Terminal$State {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun getFocused ()Lkotlinx/coroutines/flow/MutableStateFlow;
+	public synthetic fun getFocused ()Lkotlinx/coroutines/flow/StateFlow;
+	public fun getSize ()Lkotlinx/coroutines/flow/MutableStateFlow;
+	public synthetic fun getSize ()Lkotlinx/coroutines/flow/StateFlow;
+	public fun getTheme ()Lkotlinx/coroutines/flow/MutableStateFlow;
+	public synthetic fun getTheme ()Lkotlinx/coroutines/flow/StateFlow;
+}
+

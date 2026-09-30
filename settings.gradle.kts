@@ -23,4 +23,21 @@ include("protocol-contracts")
 include(":backend")
 include(":client")
 
+includeBuild("mosaic-stream29") {
+    dependencySubstitution {
+        substitute(module("com.jakewharton.mosaic:mosaic-runtime"))
+            .using(project(":mosaic-runtime"))
+
+        substitute(module("com.jakewharton.mosaic:mosaic-runtime-jvm"))
+            .using(project(":mosaic-runtime"))
+
+        substitute(module("com.jakewharton.mosaic:mosaic-animation"))
+            .using(project(":mosaic-animation"))
+
+        substitute(module("com.jakewharton.mosaic:mosaic-animation-jvm"))
+            .using(project(":mosaic-animation"))
+    }
+}
+
 rootProject.name = "iis"
+

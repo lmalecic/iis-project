@@ -1,0 +1,50 @@
+apply plugin: 'org.jetbrains.kotlin.multiplatform'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
+apply from: "$rootDir/addAllTargets.gradle"
+apply from: "$rootDir/publish.gradle"
+apply plugin: 'dev.drewhamilton.poko'
+apply plugin: 'com.jakewharton.mosaic.build'
+
+mosaicBuild {
+	patchJavaModuleWithKotlinClasses('mosaic.runtime')
+}
+
+kotlin {
+	explicitApi()
+
+	sourceSets {
+		configureEach {
+			languageSettings.optIn('kotlinx.cinterop.ExperimentalForeignApi')
+		}
+
+		commonMain {
+			dependencies {
+				api libs.androidx.compose.runtime
+				api libs.androidx.lifecycle.compose
+				api libs.kotlinx.coroutines.core
+				api projects.mosaicTerminal
+				implementation projects.mosaicTtyTerminal
+				implementation libs.androidx.collection
+				implementation libs.codepoints
+				implementation libs.unicode.segmentation.kotlin.get().copy().tap {
+					transitive = false
+				}
+				implementation libs.unicode.width.kotlin.get().copy().tap {
+					transitive = false
+				}
+			}
+		}
+		commonTest {
+			dependencies {
+				implementation projects.mosaicTesting
+				implementation libs.kotlin.test
+				implementation libs.kotlinx.coroutines.test
+				implementation libs.assertk
+			}
+		}
+	}
+
+	compilerOptions.freeCompilerArgs.add('-Xexpect-actual-classes')
+	compilerOptions.freeCompilerArgs.add('-Xnon-local-break-continue')
+	compilerOptions.freeCompilerArgs.add('-Xwhen-guards')
+}

@@ -1,0 +1,14 @@
+plugins.withId('org.jetbrains.kotlin.multiplatform') {
+	kotlin {
+		jvm()
+
+		linuxArm64()
+		linuxX64()
+
+		macosArm64()
+
+		mingwX64()
+
+		applyDefaultHierarchyTemplate()
+	}
+}
