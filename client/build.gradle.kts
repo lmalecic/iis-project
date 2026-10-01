@@ -18,6 +18,10 @@ dependencies {
     implementation("com.jakewharton.mosaic:mosaic-runtime:0.18.0")
     implementation("com.jakewharton.mosaic:mosaic-animation:0.18.0")
     implementation(project(":protocol-contracts"))
+    testImplementation("com.jakewharton.mosaic:mosaic-testing:0.18.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.11.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:6.0.3")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
     implementation("io.grpc:grpc-netty-shaded")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 }

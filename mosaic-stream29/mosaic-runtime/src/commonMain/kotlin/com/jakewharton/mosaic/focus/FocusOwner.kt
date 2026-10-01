@@ -71,6 +71,11 @@ internal class FocusOwner(
 				?.takeIf(::isEligible)
 				?: defaultTarget(nextTrap)
 			select(target)
+			// Resizing a viewport can clip the existing target without changing its identity.
+			// Relocate it after layout so the focused key path remains reachable.
+			if (target != null && tree.target(target) == null && focusedTarget === target) {
+				pendingBringIntoView = target
+			}
 
 			val attachedScopes = updatedTree.scopes.mapTo(mutableSetOf(), FocusScopeEntry::handle)
 			restoreTargets.keys.retainAll(attachedScopes)
@@ -426,7 +431,7 @@ internal class FocusOwner(
 				scope = scope.parent
 			}
 		}
-		onCursorChanged(entry?.cursorPosition ?: entry?.bounds?.topLeftCursor())
+		onCursorChanged(entry?.cursorPosition)
 
 		// Focus is committed before callbacks run. A callback may synchronously request another
 		// target; stop the obsolete dispatch as soon as that happens.

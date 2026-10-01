@@ -8,6 +8,7 @@ import com.jakewharton.mosaic.ui.Color
 
 data class AppColorScheme(
     var primary: Color = Color.Unspecified,
+    var error: Color = Color.Unspecified,
 )
 
 private val LocalAppColorScheme = staticCompositionLocalOf {
@@ -15,7 +16,8 @@ private val LocalAppColorScheme = staticCompositionLocalOf {
 }
 
 private val DefaultColorScheme = AppColorScheme(
-    primary = Color.Green
+    primary = Color.Green,
+    error = Color.Red,
 )
 
 data class AppSymbols(

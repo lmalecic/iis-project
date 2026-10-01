@@ -25,6 +25,12 @@ include(":client")
 
 includeBuild("mosaic-stream29") {
     dependencySubstitution {
+        substitute(module("com.jakewharton.mosaic:mosaic-testing"))
+            .using(project(":mosaic-testing"))
+
+        substitute(module("com.jakewharton.mosaic:mosaic-testing-jvm"))
+            .using(project(":mosaic-testing"))
+
         substitute(module("com.jakewharton.mosaic:mosaic-runtime"))
             .using(project(":mosaic-runtime"))
 

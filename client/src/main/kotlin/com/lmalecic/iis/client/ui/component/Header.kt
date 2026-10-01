@@ -1,13 +1,17 @@
 package com.lmalecic.iis.client.ui.component
 
 import androidx.compose.runtime.Composable
+import com.jakewharton.mosaic.layout.fillMaxWidth
+import com.jakewharton.mosaic.modifier.Modifier
 import com.jakewharton.mosaic.text.SpanStyle
 import com.jakewharton.mosaic.text.buildAnnotatedString
 import com.jakewharton.mosaic.text.withStyle
+import com.jakewharton.mosaic.ui.Alignment
+import com.jakewharton.mosaic.ui.Arrangement
 import com.jakewharton.mosaic.ui.Color
+import com.jakewharton.mosaic.ui.Row
 import com.jakewharton.mosaic.ui.Text
 import com.lmalecic.iis.client.ui.util.Gradient
-import com.lmalecic.iis.client.ui.util.colorAt
 
 private val LOGO_ART = listOf(
     "   ▄   ",
@@ -24,6 +28,24 @@ private val LOGO_GRADIENT = Gradient(
     ),
     angle = -45F,
 )
+
+private val TITLE_ART = """
+ ▄▄▄▄ ▄▄▄▄  ▄▄▄
+  █▀   █▀  █▄ ▀
+ ▄█   ▄█  ▄ ▀█
+▀▀▀▀ ▀▀▀▀ ▀▀▀
+""".trimIndent()
+
+@Composable
+fun Header() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(2, Alignment.CenterHorizontally)
+    ) {
+        Logo()
+        Text(TITLE_ART)
+    }
+}
 
 @Composable
 fun Logo() {
