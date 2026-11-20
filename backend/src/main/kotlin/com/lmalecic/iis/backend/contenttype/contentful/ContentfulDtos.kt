@@ -96,69 +96,296 @@ sealed interface ContentfulFieldDto {
 sealed class ContentfulValidatedFieldDto<R : ContentfulValidationDto>(
     final override val id: String,
     final override val name: String,
-) : ContentfulFieldDto {
-    final override var required: Boolean = false
-    final override var localized: Boolean = false
-    final override var disabled: Boolean = false
-    final override var omitted: Boolean = false
-    final override var deleted: Boolean? = null
-    final override var apiName: String? = null
-    final override var validations: List<R> = emptyList()
-}
+    final override val required: Boolean = false,
+    final override val localized: Boolean = false,
+    final override val disabled: Boolean = false,
+    final override val omitted: Boolean = false,
+    final override val deleted: Boolean? = null,
+    final override val apiName: String? = null,
+    final override val validations: List<R> = emptyList(),
+) : ContentfulFieldDto
 
 sealed class ContentfulFieldWithDefaultDto<T : Any, R : ContentfulValidationDto>(
     id: String,
     name: String,
-) : ContentfulValidatedFieldDto<R>(id, name) {
-    var defaultValue: Map<String, T?>? = null
-}
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<R> = emptyList(),
+    val defaultValue: Map<String, T?>? = null,
+) : ContentfulValidatedFieldDto<R>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+)
 
-class SymbolFieldDto(id: String, name: String) : ContentfulFieldWithDefaultDto<String, ContentfulValidationDto.Symbol>(id, name) {
+class SymbolFieldDto(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Symbol> = emptyList(),
+    defaultValue: Map<String, String?>? = null,
+) : ContentfulFieldWithDefaultDto<String, ContentfulValidationDto.Symbol>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+    defaultValue = defaultValue,
+) {
     override val type: ContentfulFieldType
         get() = ContentfulFieldType.SYMBOL
 }
 
-class TextFieldDto(id: String, name: String) : ContentfulFieldWithDefaultDto<String, ContentfulValidationDto.Text>(id, name) {
+class TextFieldDto(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Text> = emptyList(),
+    defaultValue: Map<String, String?>? = null,
+) : ContentfulFieldWithDefaultDto<String, ContentfulValidationDto.Text>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+    defaultValue = defaultValue,
+) {
     override val type: ContentfulFieldType
         get() = ContentfulFieldType.TEXT
 }
 
-class IntegerFieldDto(id: String, name: String) : ContentfulFieldWithDefaultDto<Long, ContentfulValidationDto.Integer>(id, name) {
+class IntegerFieldDto(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Integer> = emptyList(),
+    defaultValue: Map<String, Long?>? = null,
+) : ContentfulFieldWithDefaultDto<Long, ContentfulValidationDto.Integer>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+    defaultValue = defaultValue,
+) {
     override val type: ContentfulFieldType
         get() = ContentfulFieldType.INTEGER
 }
 
-class DecimalFieldDto(id: String, name: String) : ContentfulFieldWithDefaultDto<BigDecimal, ContentfulValidationDto.Decimal>(id, name) {
+class DecimalFieldDto(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Decimal> = emptyList(),
+    defaultValue: Map<String, BigDecimal?>? = null,
+) : ContentfulFieldWithDefaultDto<BigDecimal, ContentfulValidationDto.Decimal>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+    defaultValue = defaultValue,
+) {
     override val type: ContentfulFieldType
         get() = ContentfulFieldType.NUMBER
 }
 
-class DateFieldDto(id: String, name: String) : ContentfulFieldWithDefaultDto<String, ContentfulValidationDto.Date>(id, name) {
+class DateFieldDto(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Date> = emptyList(),
+    defaultValue: Map<String, String?>? = null,
+) : ContentfulFieldWithDefaultDto<String, ContentfulValidationDto.Date>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+    defaultValue = defaultValue,
+) {
     override val type: ContentfulFieldType
         get() = ContentfulFieldType.DATE
 }
 
-class BooleanFieldDto(id: String, name: String) : ContentfulFieldWithDefaultDto<Boolean, ContentfulValidationDto.None>(id, name) {
+class BooleanFieldDto(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.None> = emptyList(),
+    defaultValue: Map<String, Boolean?>? = null,
+) : ContentfulFieldWithDefaultDto<Boolean, ContentfulValidationDto.None>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+    defaultValue = defaultValue,
+) {
     override val type: ContentfulFieldType
         get() = ContentfulFieldType.BOOLEAN
 }
 
-class RichTextFieldDto(id: String, name: String) : ContentfulValidatedFieldDto<ContentfulValidationDto.RichText>(id, name) {
+class RichTextFieldDto(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.RichText> = emptyList(),
+) : ContentfulValidatedFieldDto<ContentfulValidationDto.RichText>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+) {
     override val type: ContentfulFieldType
         get() = ContentfulFieldType.RICH_TEXT
 }
 
-class LocationFieldDto(id: String, name: String) : ContentfulValidatedFieldDto<ContentfulValidationDto.None>(id, name) {
+class LocationFieldDto(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.None> = emptyList(),
+) : ContentfulValidatedFieldDto<ContentfulValidationDto.None>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+) {
     override val type: ContentfulFieldType
         get() = ContentfulFieldType.LOCATION
 }
 
-class ObjectFieldDto(id: String, name: String) : ContentfulValidatedFieldDto<ContentfulValidationDto.Size>(id, name) {
+class ObjectFieldDto(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Size> = emptyList(),
+) : ContentfulValidatedFieldDto<ContentfulValidationDto.Size>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+) {
     override val type: ContentfulFieldType
         get() = ContentfulFieldType.OBJECT
 }
 
-sealed class LinkFieldDto<R : ContentfulValidationDto>(id: String, name: String) : ContentfulValidatedFieldDto<R>(id, name) {
+sealed class LinkFieldDto<R : ContentfulValidationDto>(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<R> = emptyList(),
+) : ContentfulValidatedFieldDto<R>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+) {
     final override val type: ContentfulFieldType
         get() = ContentfulFieldType.LINK
 
@@ -166,12 +393,52 @@ sealed class LinkFieldDto<R : ContentfulValidationDto>(id: String, name: String)
     abstract val linkType: ContentfulLinkType
 }
 
-class AssetFieldDto(id: String, name: String) : LinkFieldDto<ContentfulValidationDto.Asset>(id, name) {
+class AssetFieldDto(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Asset> = emptyList(),
+) : LinkFieldDto<ContentfulValidationDto.Asset>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+) {
     override val linkType: ContentfulLinkType
         get() = ContentfulLinkType.ASSET
 }
 
-class EntryFieldDto(id: String, name: String) : LinkFieldDto<ContentfulValidationDto.Entry>(id, name) {
+class EntryFieldDto(
+    id: String,
+    name: String,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Entry> = emptyList(),
+) : LinkFieldDto<ContentfulValidationDto.Entry>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+) {
     override val linkType: ContentfulLinkType
         get() = ContentfulLinkType.ENTRY
 }
@@ -186,26 +453,96 @@ sealed interface ContentfulArrayFieldDto : ContentfulFieldDto {
 class SymbolArrayFieldDto(
     id: String,
     name: String,
-    override val items: SymbolItemsDto
-) : ContentfulFieldWithDefaultDto<List<String>, ContentfulValidationDto.Size>(id, name), ContentfulArrayFieldDto
+    override val items: SymbolItemsDto,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Size> = emptyList(),
+    defaultValue: Map<String, List<String>?>? = null,
+) : ContentfulFieldWithDefaultDto<List<String>, ContentfulValidationDto.Size>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+    defaultValue = defaultValue,
+), ContentfulArrayFieldDto
 
 class AssetArrayFieldDto(
     id: String,
     name: String,
-    override val items: AssetItemsDto
-) : ContentfulValidatedFieldDto<ContentfulValidationDto.Size>(id, name), ContentfulArrayFieldDto
+    override val items: AssetItemsDto,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Size> = emptyList(),
+) : ContentfulValidatedFieldDto<ContentfulValidationDto.Size>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+), ContentfulArrayFieldDto
 
 class EntryArrayFieldDto(
     id: String,
     name: String,
-    override val items: EntryItemsDto
-) : ContentfulValidatedFieldDto<ContentfulValidationDto.Size>(id, name), ContentfulArrayFieldDto
+    override val items: EntryItemsDto,
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Size> = emptyList(),
+) : ContentfulValidatedFieldDto<ContentfulValidationDto.Size>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+), ContentfulArrayFieldDto
 
 class ResourceLinkFieldDto(
     id: String,
     name: String,
     val allowedResources: List<ContentfulAllowedResourceDto>? = null,
-) : ContentfulValidatedFieldDto<ContentfulValidationDto.None>(id, name) {
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.None> = emptyList(),
+) : ContentfulValidatedFieldDto<ContentfulValidationDto.None>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+) {
     override val type: ContentfulFieldType
         get() = ContentfulFieldType.RESOURCE_LINK
 }
@@ -215,7 +552,24 @@ class ResourceLinkArrayFieldDto(
     name: String,
     override val items: ResourceLinkItemsDto,
     val allowedResources: List<ContentfulAllowedResourceDto>? = null,
-) : ContentfulValidatedFieldDto<ContentfulValidationDto.Size>(id, name), ContentfulArrayFieldDto
+    required: Boolean = false,
+    localized: Boolean = false,
+    disabled: Boolean = false,
+    omitted: Boolean = false,
+    deleted: Boolean? = null,
+    apiName: String? = null,
+    validations: List<ContentfulValidationDto.Size> = emptyList(),
+) : ContentfulValidatedFieldDto<ContentfulValidationDto.Size>(
+    id = id,
+    name = name,
+    required = required,
+    localized = localized,
+    disabled = disabled,
+    omitted = omitted,
+    deleted = deleted,
+    apiName = apiName,
+    validations = validations,
+), ContentfulArrayFieldDto
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 sealed interface ContentfulArrayItemsDto {

@@ -1,5 +1,6 @@
 package com.lmalecic.iis.backend.contenttype.contentful
 
+import com.lmalecic.iis.backend.contenttype.contentful.ContentfulValidationDto as Rule
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,127 +15,97 @@ class ContentfulDtosTest @Autowired constructor(
 ) {
     @Test
     fun `deserializes Contentful content types response`() {
+        val actual = requireNotNull(
+            javaClass.getResourceAsStream("/contentful/content-types.json"),
+        ) { "Missing Contentful response fixture" }.use { input ->
+            jsonMapper.readValue(input, ContentfulContentTypesResponse::class.java)
+        }
+
         val expected = ContentfulContentTypesResponse(
             total = 2,
             skip = 0,
             limit = 100,
             items = listOf(
                 ContentfulContentTypeDto(
-                    sys = ContentfulContentTypeSysDto(id = "review"),
+                    sys = ContentfulContentTypeSysDto("review"),
                     name = "Review",
                     description = "",
                     displayField = "text",
                     fields = listOf(
-                        ContentfulFieldDto(
+                        EntryFieldDto(
                             id = "game",
                             name = "Game",
-                            type = ContentfulFieldType.LINK,
                             required = true,
-                            linkType = "Entry",
-                            validations = listOf(
-                                ContentfulValidationDto.LinkContentTypeRule(listOf("game")),
-                            ),
+                            validations = listOf(Rule.LinkContentTypeRule(listOf("game"))),
                         ),
-                        ContentfulFieldDto(
+                        TextFieldDto(
                             id = "text",
                             name = "Text",
-                            type = ContentfulFieldType.TEXT,
-                            required = false,
-                            validations = listOf(
-                                ContentfulValidationDto.SizeRule(ContentfulValidationDto.Bounds(0, 1000))
-                            ),
+                            validations = listOf(Rule.SizeRule(Rule.Bounds(min = 0L, max = 1000L))),
                         ),
-                        ContentfulFieldDto(
+                        IntegerFieldDto(
                             id = "rating",
                             name = "Rating",
-                            type = ContentfulFieldType.INTEGER,
                             required = true,
                             validations = listOf(
-                                ContentfulValidationDto.RangeRule(ContentfulValidationDto.Bounds(1.toBigDecimal(), 5.toBigDecimal()))
+                                Rule.RangeRule(
+                                    Rule.Bounds(min = 1.toBigDecimal(), max = 5.toBigDecimal()),
+                                ),
                             ),
                         ),
-                        ContentfulFieldDto(
-                            id = "recommended",
-                            name = "Recommended",
-                            type = ContentfulFieldType.BOOLEAN,
-                            required = true,
-                        ),
+                        BooleanFieldDto(id = "recommended", name = "Recommended", required = true),
                     ),
                 ),
                 ContentfulContentTypeDto(
-                    sys = ContentfulContentTypeSysDto(id = "game"),
+                    sys = ContentfulContentTypeSysDto("game"),
                     name = "Game",
                     description = "",
                     displayField = "title",
                     fields = listOf(
-                        ContentfulFieldDto(
-                            id = "title",
-                            name = "Title",
-                            type = ContentfulFieldType.SYMBOL,
-                            required = true,
-                        ),
-                        ContentfulFieldDto(
+                        SymbolFieldDto(id = "title", name = "Title", required = true),
+                        SymbolArrayFieldDto(
                             id = "platforms",
                             name = "Platforms",
-                            type = ContentfulFieldType.ARRAY,
-                            required = true,
-                            items = ContentfulArrayItemsDto(
-                                type = ContentfulFieldType.SYMBOL,
+                            items = SymbolItemsDto(
                                 validations = listOf(
-                                    // This might be problematic
-                                    ContentfulValidationDto.AllowedValuesRule(listOf(jsonMapper.readTree("""["PC","Console","Mobile"]"""))),
+                                    Rule.TextAllowedValuesRule(listOf("PC", "Console", "Mobile")),
+                                ),
+                            ),
+                            required = true,
+                        ),
+                        SymbolArrayFieldDto(
+                            id = "genres",
+                            name = "Genres",
+                            items = SymbolItemsDto(
+                                validations = listOf(
+                                    Rule.TextAllowedValuesRule(
+                                        listOf(
+                                            "Action", "Adventure", "Role-playing (RPG)",
+                                            "Strategy", "Simulation", "Puzzle", "Platformer",
+                                            "Shooter", "Fighting", "Racing", "Sports", "Horror",
+                                        ),
+                                    ),
                                 ),
                             ),
                         ),
-                        ContentfulFieldDto(
-                            id = "genres",
-                            name = "Genres",
-                            type = ContentfulFieldType.ARRAY,
-                            required = false,
-                            items = ContentfulArrayItemsDto(
-                                type = ContentfulFieldType.SYMBOL,
-                                validations = listOf(
-                                        ContentfulValidationDto.AllowedValuesRule(listOf(
-                                            jsonMapper.readTree("""
-                                                      [
-                                                        "Action", "Adventure", "Role-playing (RPG)",
-                                                        "Strategy", "Simulation", "Puzzle",
-                                                        "Platformer", "Shooter", "Fighting",
-                                                        "Racing", "Sports", "Horror"
-                                                      ]
-                                                    """.trimIndent()
-                                            )
-                                        )
-                                    ),
-                                )
-                            ),
-                        ),
-                        ContentfulFieldDto(
+                        DateFieldDto(
                             id = "releaseDate",
                             name = "Release date",
-                            type = ContentfulFieldType.DATE,
-                            required = false,
                             validations = listOf(
-                                ContentfulValidationDto.DateRangeRule(ContentfulValidationDto.DateRangeRule.Bounds("1950-01-01"))
+                                Rule.DateRangeRule(
+                                    Rule.DateRangeRule.Bounds(min = "1950-01-01"),
+                                ),
                             ),
                         ),
-                        ContentfulFieldDto(
-                            id = "multiplayer",
-                            name = "Multiplayer",
-                            type = ContentfulFieldType.BOOLEAN,
-                            required = true,
-                        ),
+                        BooleanFieldDto(id = "multiplayer", name = "Multiplayer", required = true),
                     ),
                 ),
             ),
         )
 
-        val response = requireNotNull(
-            javaClass.getResourceAsStream("/contentful/content-types.json")
-        ) { "Missing Contentful response fixture" }.use { input ->
-            jsonMapper.readValue(input, ContentfulContentTypesResponse::class.java)
-        }
-
-        assertThat(response).isEqualTo(expected)
+        assertThat(actual)
+            .usingRecursiveComparison()
+            .withStrictTypeChecking()
+            .isEqualTo(expected)
     }
 }
