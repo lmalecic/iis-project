@@ -6,3 +6,9 @@ spring:
       - org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
   flyway:
     enabled: false
+  config:
+    import: "optional:file:.env[.properties]"
+
+contentful:
+  space-id: "${CONTENTFUL_SPACE_ID}"
+  token: "${CONTENTFUL_TOKEN}"

@@ -1,0 +1,270 @@
+{
+  "sys": {
+    "type": "Array"
+  },
+  "total": 2,
+  "skip": 0,
+  "limit": 100,
+  "items": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "hdkof0dh3xfy"
+          }
+        },
+        "id": "review",
+        "type": "ContentType",
+        "createdAt": "2026-11-19T15:23:02.311Z",
+        "updatedAt": "2026-11-19T15:23:02.681Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 1,
+        "publishedAt": "2026-11-19T15:23:02.681Z",
+        "firstPublishedAt": "2026-11-19T15:23:02.681Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "032yVdGwGEgHSP110xiPuR"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "032yVdGwGEgHSP110xiPuR"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "032yVdGwGEgHSP110xiPuR"
+          }
+        },
+        "urn": "crn:contentful:::content:spaces/hdkof0dh3xfy/environments/master/content_types/review"
+      },
+      "displayField": "text",
+      "name": "Review",
+      "description": "",
+      "fields": [
+        {
+          "id": "game",
+          "name": "Game",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkContentType": [
+                "game"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
+          "id": "text",
+          "name": "Text",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "size": {
+                "min": 0,
+                "max": 1000
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "rating",
+          "name": "Rating",
+          "type": "Integer",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "range": {
+                "min": 1,
+                "max": 5
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "recommended",
+          "name": "Recommended",
+          "type": "Boolean",
+          "localized": false,
+          "required": true,
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "hdkof0dh3xfy"
+          }
+        },
+        "id": "game",
+        "type": "ContentType",
+        "createdAt": "2026-11-19T15:16:57.035Z",
+        "updatedAt": "2026-11-19T15:16:57.476Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 1,
+        "publishedAt": "2026-11-19T15:16:57.476Z",
+        "firstPublishedAt": "2026-11-19T15:16:57.476Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "032yVdGwGEgHSP110xiPuR"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "032yVdGwGEgHSP110xiPuR"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "032yVdGwGEgHSP110xiPuR"
+          }
+        },
+        "urn": "crn:contentful:::content:spaces/hdkof0dh3xfy/environments/master/content_types/game"
+      },
+      "displayField": "title",
+      "name": "Game",
+      "description": "",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "platforms",
+          "name": "Platforms",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Symbol",
+            "validations": [
+              {
+                "in": [
+                  "PC",
+                  "Console",
+                  "Mobile"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "genres",
+          "name": "Genres",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Symbol",
+            "validations": [
+              {
+                "in": [
+                  "Action",
+                  "Adventure",
+                  "Role-playing (RPG)",
+                  "Strategy",
+                  "Simulation",
+                  "Puzzle",
+                  "Platformer",
+                  "Shooter",
+                  "Fighting",
+                  "Racing",
+                  "Sports",
+                  "Horror"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "releaseDate",
+          "name": "Release date",
+          "type": "Date",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "dateRange": {
+                "after": null,
+                "before": null,
+                "min": "1950-01-01"
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "multiplayer",
+          "name": "Multiplayer",
+          "type": "Boolean",
+          "localized": false,
+          "required": true,
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    }
+  ]
+}
