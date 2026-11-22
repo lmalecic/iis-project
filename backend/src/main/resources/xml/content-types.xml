@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='utf-8'?>
+<contentTypes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="content-types.xsd">
+    <contentType id="fieldTypeSandbox">
+        <name>Field Type Sandbox</name>
+        <displayField>shortLabel</displayField>
+        <fields>
+            <richTextField id="richBody" required="true" localized="false" disabled="false" omitted="false">
+                <name>Rich body</name>
+                <validations>
+                    <size>
+                        <min>1</min>
+                        <max>10</max>
+                    </size>
+                    <enabledMarks>
+                        <message>Only bold, italic, underline, code, superscript, subscript, and strikethrough marks are allowed</message>
+                        <mark>bold</mark>
+                        <mark>italic</mark>
+                        <mark>underline</mark>
+                        <mark>code</mark>
+                        <mark>superscript</mark>
+                        <mark>subscript</mark>
+                        <mark>strikethrough</mark>
+                    </enabledMarks>
+                    <enabledNodeTypes>
+                        <message>Only heading 1, heading 2, heading 3, heading 4, heading 5, heading 6, ordered list, unordered list, horizontal rule, quote, block entry, asset, table, link to asset, inline entry, link to entry, and link to Url nodes are allowed</message>
+                        <nodeType>heading-1</nodeType>
+                        <nodeType>heading-2</nodeType>
+                        <nodeType>heading-3</nodeType>
+                        <nodeType>heading-4</nodeType>
+                        <nodeType>heading-5</nodeType>
+                        <nodeType>heading-6</nodeType>
+                        <nodeType>ordered-list</nodeType>
+                        <nodeType>unordered-list</nodeType>
+                        <nodeType>hr</nodeType>
+                        <nodeType>blockquote</nodeType>
+                        <nodeType>embedded-entry-block</nodeType>
+                        <nodeType>embedded-asset-block</nodeType>
+                        <nodeType>table</nodeType>
+                        <nodeType>asset-hyperlink</nodeType>
+                        <nodeType>embedded-entry-inline</nodeType>
+                        <nodeType>entry-hyperlink</nodeType>
+                        <nodeType>hyperlink</nodeType>
+                    </enabledNodeTypes>
+                    <nodes>
+                        <embedded-entry-block>
+                            <linkContentType>
+                                <message>Embed a Game entry.</message>
+                                <contentType>game</contentType>
+                                <contentType>review</contentType>
+                            </linkContentType>
+                            <size>
+                                <min>1</min>
+                                <max>100</max>
+                            </size>
+                        </embedded-entry-block>
+                        <embedded-entry-inline>
+                            <size>
+                                <min>0</min>
+                                <max>2</max>
+                            </size>
+                        </embedded-entry-inline>
+                        <entry-hyperlink>
+                            <linkContentType>
+                                <contentType>fieldTypeSandbox</contentType>
+                                <contentType>game</contentType>
+                            </linkContentType>
+                            <size>
+                                <min>1</min>
+                                <max>100</max>
+                            </size>
+                        </entry-hyperlink>
+                        <embedded-asset-block>
+                            <size>
+                                <min>0</min>
+                                <max>3</max>
+                            </size>
+                        </embedded-asset-block>
+                        <asset-hyperlink>
+                            <size>
+                                <min>1</min>
+                                <max>100</max>
+                            </size>
+                        </asset-hyperlink>
+                    </nodes>
+                </validations>
+            </richTextField>
+            <symbolField id="shortLabel" required="false" localized="false" disabled="false" omitted="false">
+                <name>Short label</name>
+                <validations>
+                    <unique />
+                </validations>
+            </symbolField>
+            <textField id="longNotes" required="false" localized="false" disabled="false" omitted="false">
+                <name>Long notes</name>
+            </textField>
+            <symbolArrayField id="shortTags" required="false" localized="true" disabled="false" omitted="false">
+                <name>Short tags</name>
+                <validations>
+                    <size>
+                        <min>1</min>
+                        <max>4</max>
+                    </size>
+                </validations>
+                <items>
+                    <validations>
+                        <size>
+                            <min>2</min>
+                            <max>12</max>
+                        </size>
+                    </validations>
+                </items>
+            </symbolArrayField>
+            <integerField id="wholeScore" required="false" localized="false" disabled="false" omitted="false">
+                <name>Whole score</name>
+                <validations>
+                    <range>
+                        <message>Whole score must be greater or equal than minimum</message>
+                        <min>0</min>
+                    </range>
+                </validations>
+            </integerField>
+            <numberField id="decimalScore" required="false" localized="false" disabled="false" omitted="false">
+                <name>Decimal score</name>
+                <validations>
+                    <range>
+                        <min>0.25</min>
+                        <max>9.75</max>
+                    </range>
+                    <allowedValues>
+                        <value>1</value>
+                        <value>2</value>
+                        <value>3</value>
+                        <value>-3</value>
+                    </allowedValues>
+                </validations>
+            </numberField>
+            <dateField id="sampleDate" required="false" localized="false" disabled="false" omitted="false">
+                <name>Sample date</name>
+                <validations>
+                    <dateRange>
+                        <min>2026-11-01T00:30:12+00:00</min>
+                    </dateRange>
+                </validations>
+            </dateField>
+            <locationField id="sampleLocation" required="false" localized="false" disabled="false" omitted="false">
+                <name>Sample location</name>
+            </locationField>
+            <assetField id="coverAsset" required="false" localized="false" disabled="false" omitted="false">
+                <name>Cover asset</name>
+                <validations>
+                    <linkMimetypeGroup>
+                        <message>MIMETYPE NOT ALLOWED!</message>
+                        <mimetype>attachment</mimetype>
+                        <mimetype>plaintext</mimetype>
+                        <mimetype>image</mimetype>
+                        <mimetype>audio</mimetype>
+                        <mimetype>video</mimetype>
+                        <mimetype>richtext</mimetype>
+                        <mimetype>presentation</mimetype>
+                        <mimetype>spreadsheet</mimetype>
+                        <mimetype>pdfdocument</mimetype>
+                        <mimetype>archive</mimetype>
+                        <mimetype>code</mimetype>
+                        <mimetype>markup</mimetype>
+                        <mimetype>message</mimetype>
+                    </linkMimetypeGroup>
+                </validations>
+            </assetField>
+            <assetArrayField id="galleryAssets" required="false" localized="false" disabled="false" omitted="false">
+                <name>Gallery assets</name>
+                <validations>
+                    <size>
+                        <min>1</min>
+                        <max>4</max>
+                    </size>
+                </validations>
+                <items>
+                    <validations>
+                        <linkMimetypeGroup>
+                            <mimetype>image</mimetype>
+                        </linkMimetypeGroup>
+                    </validations>
+                </items>
+            </assetArrayField>
+            <booleanField id="featuredFlag" required="false" localized="false" disabled="false" omitted="false">
+                <name>Featured flag</name>
+                <defaults>
+                    <value locale="en-US">false</value>
+                </defaults>
+            </booleanField>
+            <objectField id="extraJson" required="false" localized="false" disabled="false" omitted="false">
+                <name>Extra JSON</name>
+            </objectField>
+            <entryField id="relatedGame" required="false" localized="false" disabled="false" omitted="false">
+                <name>Related game</name>
+                <validations>
+                    <linkContentType>
+                        <contentType>game</contentType>
+                    </linkContentType>
+                </validations>
+            </entryField>
+            <entryArrayField id="relatedGames" required="false" localized="false" disabled="false" omitted="false">
+                <name>Related games</name>
+                <validations>
+                    <size>
+                        <min>1</min>
+                        <max>3</max>
+                    </size>
+                </validations>
+                <items>
+                    <validations>
+                        <linkContentType>
+                            <contentType>game</contentType>
+                        </linkContentType>
+                    </validations>
+                </items>
+            </entryArrayField>
+            <symbolField id="test" required="false" localized="false" disabled="false" omitted="false">
+                <name>test</name>
+            </symbolField>
+            <dateField id="dateTimeTest" required="false" localized="false" disabled="false" omitted="false">
+                <name>DateTimeTest</name>
+                <validations>
+                    <dateRange>
+                        <min>2026-11-01T00:00:00</min>
+                    </dateRange>
+                </validations>
+            </dateField>
+        </fields>
+    </contentType>
+    <contentType id="sample">
+        <name>Sample</name>
+        <description>Sample description</description>
+        <displayField>aaa</displayField>
+        <fields>
+            <dateField id="sampleDateTime" required="false" localized="false" disabled="false" omitted="false">
+                <name>SampleDateTime</name>
+            </dateField>
+            <symbolField id="aaa" required="false" localized="false" disabled="false" omitted="false">
+                <name>aaa</name>
+            </symbolField>
+        </fields>
+    </contentType>
+    <contentType id="game">
+        <name>Game</name>
+        <displayField>title</displayField>
+        <fields>
+            <symbolField id="title" required="true" localized="false" disabled="false" omitted="false">
+                <name>Title</name>
+            </symbolField>
+            <symbolArrayField id="platforms" required="true" localized="false" disabled="false" omitted="false">
+                <name>Platforms</name>
+                <items>
+                    <validations>
+                        <allowedValues>
+                            <value>PC</value>
+                            <value>Console</value>
+                            <value>Mobile</value>
+                        </allowedValues>
+                    </validations>
+                </items>
+            </symbolArrayField>
+            <symbolArrayField id="genres" required="false" localized="false" disabled="false" omitted="false">
+                <name>Genres</name>
+                <items>
+                    <validations>
+                        <allowedValues>
+                            <value>Action</value>
+                            <value>Adventure</value>
+                            <value>Role-playing (RPG)</value>
+                            <value>Strategy</value>
+                            <value>Simulation</value>
+                            <value>Puzzle</value>
+                            <value>Platformer</value>
+                            <value>Shooter</value>
+                            <value>Fighting</value>
+                            <value>Racing</value>
+                            <value>Sports</value>
+                            <value>Horror</value>
+                        </allowedValues>
+                    </validations>
+                </items>
+            </symbolArrayField>
+            <dateField id="releaseDate" required="false" localized="false" disabled="false" omitted="false">
+                <name>Release date</name>
+                <validations>
+                    <dateRange>
+                        <min>1950-01-01T00:00:00</min>
+                        <max>2026-11-19T00:00:00+00:00</max>
+                    </dateRange>
+                </validations>
+            </dateField>
+            <booleanField id="multiplayer" required="true" localized="false" disabled="false" omitted="false">
+                <name>Multiplayer</name>
+            </booleanField>
+        </fields>
+    </contentType>
+    <contentType id="review">
+        <name>Review</name>
+        <displayField>text</displayField>
+        <fields>
+            <entryField id="game" required="true" localized="false" disabled="false" omitted="false">
+                <name>Game</name>
+                <validations>
+                    <linkContentType>
+                        <contentType>game</contentType>
+                    </linkContentType>
+                </validations>
+            </entryField>
+            <textField id="text" required="false" localized="false" disabled="false" omitted="false">
+                <name>Text</name>
+                <validations>
+                    <size>
+                        <min>0</min>
+                        <max>1000</max>
+                    </size>
+                </validations>
+            </textField>
+            <integerField id="rating" required="true" localized="false" disabled="false" omitted="false">
+                <name>Rating</name>
+                <validations>
+                    <range>
+                        <min>1</min>
+                        <max>5</max>
+                    </range>
+                </validations>
+            </integerField>
+            <booleanField id="recommended" required="true" localized="false" disabled="false" omitted="false">
+                <name>Recommended</name>
+            </booleanField>
+        </fields>
+    </contentType>
+</contentTypes>

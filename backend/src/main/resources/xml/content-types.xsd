@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="contentTypes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="contentType" type="contentType" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+        <xs:key name="uniqueContentTypeId">
+            <xs:selector xpath="contentType"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+    </xs:element>
+
+    <xs:complexType name="contentType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string" minOccurs="0"/>
+            <xs:element name="displayField" type="xs:string" minOccurs="0"/>
+            <xs:element name="fields">
+                <xs:complexType>
+                    <xs:choice minOccurs="0" maxOccurs="unbounded">
+                        <xs:element name="symbolField" type="symbolField"/>
+                        <xs:element name="textField" type="textField"/>
+                        <xs:element name="richTextField" type="richTextField"/>
+                        <xs:element name="integerField" type="integerField"/>
+                        <xs:element name="numberField" type="numberField"/>
+                        <xs:element name="dateField" type="dateField"/>
+                        <xs:element name="locationField" type="locationField"/>
+                        <xs:element name="booleanField" type="booleanField"/>
+                        <xs:element name="objectField" type="objectField"/>
+                        <xs:element name="entryField" type="entryField"/>
+                        <xs:element name="assetField" type="assetField"/>
+                        <xs:element name="resourceLinkField" type="resourceLinkField"/>
+                        <xs:element name="symbolArrayField" type="symbolArrayField"/>
+                        <xs:element name="entryArrayField" type="entryArrayField"/>
+                        <xs:element name="assetArrayField" type="assetArrayField"/>
+                        <xs:element name="resourceLinkArrayField" type="resourceLinkArrayField"/>
+                    </xs:choice>
+                </xs:complexType>
+                <xs:key name="uniqueFieldId">
+                    <xs:selector xpath="*"/>
+                    <xs:field xpath="@id"/>
+                </xs:key>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:attributeGroup name="commonFieldAttributes">
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="required" type="xs:boolean" use="required"/>
+        <xs:attribute name="localized" type="xs:boolean" use="required"/>
+        <xs:attribute name="disabled" type="xs:boolean" use="required"/>
+        <xs:attribute name="omitted" type="xs:boolean" use="required"/>
+        <xs:attribute name="deleted" type="xs:boolean"/>
+    </xs:attributeGroup>
+
+    <xs:group name="commonFieldElements">
+        <xs:sequence>
+            <xs:element name="name">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="apiName" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:pattern value="[A-Za-z][A-Za-z0-9_]*"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="symbolField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="defaults" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="value" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="symbol">
+                                        <xs:attribute name="locale" type="xs:language" use="required"/>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+                <xs:key name="symbolDefaultLocaleKey">
+                    <xs:selector xpath="value"/>
+                    <xs:field xpath="@locale"/>
+                </xs:key>
+            </xs:element>
+            <xs:element name="validations" minOccurs="0">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="regex" type="regexRule" minOccurs="0"/>
+                        <xs:element name="prohibitRegex" type="prohibitRegexRule" minOccurs="0"/>
+                        <xs:element name="size" type="sizeRule" minOccurs="0"/>
+                        <xs:element name="allowedValues" type="symbolAllowedValuesRule" minOccurs="0">
+                            <xs:unique name="uniqueSymbolAllowedValue">
+                                <xs:selector xpath="value"/>
+                                <xs:field xpath="."/>
+                            </xs:unique>
+                        </xs:element>
+                        <xs:element name="unique" type="uniqueRule" minOccurs="0"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="textField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="defaults" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="value" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="text">
+                                        <xs:attribute name="locale" type="xs:language" use="required"/>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+                <xs:key name="textDefaultLocaleKey">
+                    <xs:selector xpath="value"/>
+                    <xs:field xpath="@locale"/>
+                </xs:key>
+            </xs:element>
+            <xs:element name="validations" minOccurs="0">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="regex" type="regexRule" minOccurs="0"/>
+                        <xs:element name="prohibitRegex" type="prohibitRegexRule" minOccurs="0"/>
+                        <xs:element name="size" type="sizeRule" minOccurs="0"/>
+                        <xs:element name="allowedValues" type="textAllowedValuesRule" minOccurs="0">
+                            <xs:unique name="uniqueTextAllowedValue">
+                                <xs:selector xpath="value"/>
+                                <xs:field xpath="."/>
+                            </xs:unique>
+                        </xs:element>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="richTextField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="validations" minOccurs="0">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="enabledMarks" type="enabledMarksRule" minOccurs="0">
+                            <xs:unique name="uniqueRichTextEnabledMark">
+                                <xs:selector xpath="mark"/>
+                                <xs:field xpath="."/>
+                            </xs:unique>
+                        </xs:element>
+                        <xs:element name="enabledNodeTypes" type="enabledNodeTypesRule" minOccurs="0">
+                            <xs:unique name="uniqueRichTextEnabledNodeType">
+                                <xs:selector xpath="nodeType"/>
+                                <xs:field xpath="."/>
+                            </xs:unique>
+                        </xs:element>
+                        <xs:element name="nodes" type="nodesRule" minOccurs="0"/>
+                        <xs:element name="size" type="sizeRule" minOccurs="0"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="integerField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="defaults" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="value" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:long">
+                                        <xs:attribute name="locale" type="xs:language" use="required"/>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+                <xs:key name="integerDefaultLocaleKey">
+                    <xs:selector xpath="value"/>
+                    <xs:field xpath="@locale"/>
+                </xs:key>
+            </xs:element>
+            <xs:element name="validations" minOccurs="0">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="unique" type="uniqueRule" minOccurs="0"/>
+                        <xs:element name="range" type="rangeRule" minOccurs="0"/>
+                        <xs:element name="allowedValues" type="integerAllowedValuesRule" minOccurs="0">
+                            <xs:unique name="uniqueIntegerAllowedValue">
+                                <xs:selector xpath="value"/>
+                                <xs:field xpath="."/>
+                            </xs:unique>
+                        </xs:element>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="numberField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="defaults" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="value" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:decimal">
+                                        <xs:attribute name="locale" type="xs:language" use="required"/>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+                <xs:key name="numberDefaultLocaleKey">
+                    <xs:selector xpath="value"/>
+                    <xs:field xpath="@locale"/>
+                </xs:key>
+            </xs:element>
+            <xs:element name="validations" minOccurs="0">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="unique" type="uniqueRule" minOccurs="0"/>
+                        <xs:element name="range" type="rangeRule" minOccurs="0"/>
+                        <xs:element name="allowedValues" type="decimalAllowedValuesRule" minOccurs="0">
+                            <xs:unique name="uniqueDecimalAllowedValue">
+                                <xs:selector xpath="value"/>
+                                <xs:field xpath="."/>
+                            </xs:unique>
+                        </xs:element>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="dateField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="defaults" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="value" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:dateTime">
+                                        <xs:attribute name="locale" type="xs:language" use="required"/>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+                <xs:key name="dateDefaultLocaleKey">
+                    <xs:selector xpath="value"/>
+                    <xs:field xpath="@locale"/>
+                </xs:key>
+            </xs:element>
+            <xs:element name="validations" minOccurs="0">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="dateRange" type="dateRangeRule" minOccurs="0"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="locationField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="booleanField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="defaults" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="value" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:boolean">
+                                        <xs:attribute name="locale" type="xs:language" use="required"/>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+                <xs:key name="booleanDefaultLocaleKey">
+                    <xs:selector xpath="value"/>
+                    <xs:field xpath="@locale"/>
+                </xs:key>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="objectField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="validations" minOccurs="0">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="size" type="sizeRule" minOccurs="0"/>
+                    </xs:all>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="entryField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="validations" type="entryValidations" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="assetField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="validations" type="assetValidations" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="symbolArrayField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="defaults" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="values" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="value" type="symbol" maxOccurs="unbounded"/>
+                                </xs:sequence>
+                                <xs:attribute name="locale" type="xs:language" use="required"/>
+                            </xs:complexType>
+                            <xs:unique name="uniqueSymbolArrayDefaultValue">
+                                <xs:selector xpath="value"/>
+                                <xs:field xpath="."/>
+                            </xs:unique>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+                <xs:key name="symbolArrayDefaultLocaleKey">
+                    <xs:selector xpath="values"/>
+                    <xs:field xpath="@locale"/>
+                </xs:key>
+            </xs:element>
+            <xs:element name="validations" type="arrayValidations" minOccurs="0"/>
+            <xs:element name="items" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="validations">
+                            <xs:complexType>
+                                <xs:all>
+                                    <xs:element name="regex" type="regexRule" minOccurs="0"/>
+                                    <xs:element name="prohibitRegex" type="prohibitRegexRule" minOccurs="0"/>
+                                    <xs:element name="size" type="sizeRule" minOccurs="0"/>
+                                    <xs:element name="allowedValues" type="symbolAllowedValuesRule" minOccurs="0">
+                                        <xs:unique name="uniqueSymbolArrayAllowedValue">
+                                            <xs:selector xpath="value"/>
+                                            <xs:field xpath="."/>
+                                        </xs:unique>
+                                    </xs:element>
+                                </xs:all>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+    
+    <xs:complexType name="entryArrayField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="validations" type="arrayValidations" minOccurs="0"/>
+            <xs:element name="items" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="validations" type="entryValidations"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="assetArrayField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="validations" type="arrayValidations" minOccurs="0"/>
+            <xs:element name="items" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="validations" type="assetValidations"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="resourceLinkArrayField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="validations" type="arrayValidations" minOccurs="0"/>
+            <xs:element name="allowedResources" type="allowedResourcesList" minOccurs="0">
+                <xs:key name="resourceLinkArraySourceKey">
+                    <xs:selector xpath="resource"/>
+                    <xs:field xpath="@type"/>
+                    <xs:field xpath="@source"/>
+                </xs:key>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="resourceLinkField">
+        <xs:sequence>
+            <xs:group ref="commonFieldElements"/>
+            <xs:element name="allowedResources" type="allowedResourcesList" minOccurs="0">
+                <xs:key name="resourceLinkSourceKey">
+                    <xs:selector xpath="resource"/>
+                    <xs:field xpath="@type"/>
+                    <xs:field xpath="@source"/>
+                </xs:key>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="commonFieldAttributes"/>
+    </xs:complexType>
+
+    <xs:complexType name="entryValidations">
+        <xs:all>
+            <xs:element name="linkContentType" type="linkContentTypeRule" minOccurs="0">
+                <xs:unique name="uniqueLinkContentType">
+                    <xs:selector xpath="contentType"/>
+                    <xs:field xpath="."/>
+                </xs:unique>
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="assetValidations">
+        <xs:all>
+            <xs:element name="assetFileSize" type="assetFileSizeRule" minOccurs="0"/>
+            <xs:element name="assetImageDimensions" type="assetImageDimensionsRule" minOccurs="0"/>
+            <xs:element name="linkMimetypeGroup" type="linkMimetypeGroupRule" minOccurs="0">
+                <xs:unique name="uniqueAssetMimetype">
+                    <xs:selector xpath="mimetype"/>
+                    <xs:field xpath="."/>
+                </xs:unique>
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="arrayValidations">
+        <xs:all>
+            <xs:element name="size" type="sizeRule" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:group name="commonRuleElements">
+        <xs:sequence>
+            <xs:element name="message" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="symbolAllowedValuesRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:element name="value" type="symbol" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="textAllowedValuesRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:element name="value" type="text" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="integerAllowedValuesRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:element name="value" type="xs:long" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="decimalAllowedValuesRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:element name="value" type="xs:decimal" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="uniqueRule">
+        <xs:group ref="commonRuleElements"/>
+    </xs:complexType>
+    
+    <xs:complexType name="sizeRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:choice>
+                <xs:sequence>
+                    <xs:element name="min" type="xs:long"/>
+                    <xs:element name="max" type="xs:long" minOccurs="0"/>
+                </xs:sequence>
+                <xs:element name="max" type="xs:long"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="rangeRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:choice>
+                <xs:sequence>
+                    <xs:element name="min" type="xs:decimal"/>
+                    <xs:element name="max" type="xs:decimal" minOccurs="0"/>
+                </xs:sequence>
+                <xs:element name="max" type="xs:decimal"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="dateRangeRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:choice>
+                <xs:sequence>
+                    <xs:element name="min" type="xs:dateTime"/>
+                    <xs:element name="max" type="xs:dateTime" minOccurs="0"/>
+                </xs:sequence>
+                <xs:element name="max" type="xs:dateTime"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="regexRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:element name="pattern" type="xs:string"/>
+            <xs:element name="flags" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="prohibitRegexRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:element name="pattern" type="xs:string"/>
+            <xs:element name="flags" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="linkContentTypeRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:element name="contentType" type="xs:string" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="linkMimetypeGroupRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:element name="mimetype" maxOccurs="unbounded">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="attachment"/>
+                        <xs:enumeration value="plaintext"/>
+                        <xs:enumeration value="image"/>
+                        <xs:enumeration value="audio"/>
+                        <xs:enumeration value="video"/>
+                        <xs:enumeration value="richtext"/>
+                        <xs:enumeration value="presentation"/>
+                        <xs:enumeration value="spreadsheet"/>
+                        <xs:enumeration value="pdfdocument"/>
+                        <xs:enumeration value="archive"/>
+                        <xs:enumeration value="code"/>
+                        <xs:enumeration value="markup"/>
+                        <xs:enumeration value="message"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="assetFileSizeRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:choice>
+                <xs:sequence>
+                    <xs:element name="min" type="xs:unsignedLong"/>
+                    <xs:element name="max" type="xs:unsignedLong" minOccurs="0"/>
+                </xs:sequence>
+                <xs:element name="max" type="xs:unsignedLong"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="assetImageDimensionsRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:choice>
+                <xs:sequence>
+                    <xs:element name="width" type="unsignedIntBounds"/>
+                    <xs:element name="height" type="unsignedIntBounds" minOccurs="0"/>
+                </xs:sequence>
+                <xs:sequence>
+                    <xs:element name="height" type="unsignedIntBounds"/>
+                    <xs:element name="width" type="unsignedIntBounds" minOccurs="0"/>
+                </xs:sequence>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="enabledMarksRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:element name="mark" maxOccurs="unbounded">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="bold"/>
+                        <xs:enumeration value="italic"/>
+                        <xs:enumeration value="underline"/>
+                        <xs:enumeration value="code"/>
+                        <xs:enumeration value="superscript"/>
+                        <xs:enumeration value="subscript"/>
+                        <xs:enumeration value="strikethrough"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="enabledNodeTypesRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:element name="nodeType" maxOccurs="unbounded">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="heading-1"/>
+                        <xs:enumeration value="heading-2"/>
+                        <xs:enumeration value="heading-3"/>
+                        <xs:enumeration value="heading-4"/>
+                        <xs:enumeration value="heading-5"/>
+                        <xs:enumeration value="heading-6"/>
+                        <xs:enumeration value="ordered-list"/>
+                        <xs:enumeration value="unordered-list"/>
+                        <xs:enumeration value="hr"/>
+                        <xs:enumeration value="blockquote"/>
+                        <xs:enumeration value="embedded-entry-block"/>
+                        <xs:enumeration value="embedded-asset-block"/>
+                        <xs:enumeration value="table"/>
+                        <xs:enumeration value="asset-hyperlink"/>
+                        <xs:enumeration value="embedded-entry-inline"/>
+                        <xs:enumeration value="entry-hyperlink"/>
+                        <xs:enumeration value="hyperlink"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="nodesRule">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:element name="embedded-entry-block" type="entryNodeRules" minOccurs="0"/>
+            <xs:element name="embedded-entry-inline" type="entryNodeRules" minOccurs="0"/>
+            <xs:element name="entry-hyperlink" type="entryNodeRules" minOccurs="0"/>
+            <xs:element name="embedded-asset-block" type="sizeRuleList" minOccurs="0"/>
+            <xs:element name="asset-hyperlink" type="sizeRuleList" minOccurs="0"/>
+            <xs:element name="embedded-resource-block" type="resourceRestrictions" minOccurs="0"/>
+            <xs:element name="embedded-resource-inline" type="resourceRestrictions" minOccurs="0"/>
+            <xs:element name="resource-hyperlink" type="resourceRestrictions" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="resourceRestrictions">
+        <xs:sequence>
+            <xs:element name="validations" type="sizeRuleList" minOccurs="0"/>
+            <xs:element name="allowedResources" type="allowedResourcesList">
+                <xs:key name="resourceRestrictionSourceKey">
+                    <xs:selector xpath="resource"/>
+                    <xs:field xpath="@type"/>
+                    <xs:field xpath="@source"/>
+                </xs:key>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="allowedResourcesList">
+        <xs:sequence>
+            <xs:element name="resource" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="contentType" type="xs:string" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                    <xs:attribute name="type" type="xs:string" use="required"/>
+                    <xs:attribute name="source" type="xs:anyURI" use="required"/>
+                </xs:complexType>
+                <xs:unique name="uniqueAllowedResourceContentType">
+                    <xs:selector xpath="contentType"/>
+                    <xs:field xpath="."/>
+                </xs:unique>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="sizeRuleList">
+        <xs:sequence>
+            <xs:element name="size" type="sizeRule" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="entryNodeRules">
+        <xs:sequence>
+            <xs:group ref="commonRuleElements"/>
+            <xs:choice>
+                <xs:sequence>
+                    <xs:element name="linkContentType" type="linkContentTypeRule">
+                        <xs:unique name="uniqueEntryNodeLinkContentType">
+                            <xs:selector xpath="contentType"/>
+                            <xs:field xpath="."/>
+                        </xs:unique>
+                    </xs:element>
+                    <xs:element name="size" type="sizeRule" minOccurs="0"/>
+                </xs:sequence>
+                <xs:sequence>
+                    <xs:element name="size" type="sizeRule"/>
+                    <xs:element name="linkContentType" type="linkContentTypeRule" minOccurs="0">
+                        <xs:unique name="uniqueEntryNodeLinkContentType2">
+                            <xs:selector xpath="contentType"/>
+                            <xs:field xpath="."/>
+                        </xs:unique>
+                    </xs:element>
+                </xs:sequence>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="unsignedIntBounds">
+        <xs:choice>
+            <xs:sequence>
+                <xs:element name="min" type="xs:unsignedInt"/>
+                <xs:element name="max" type="xs:unsignedInt" minOccurs="0"/>
+            </xs:sequence>
+            <xs:element name="max" type="xs:unsignedInt"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:simpleType name="symbol">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="256"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="text">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="50000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

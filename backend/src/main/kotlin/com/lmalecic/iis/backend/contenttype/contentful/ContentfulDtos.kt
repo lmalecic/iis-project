@@ -710,12 +710,12 @@ sealed interface ContentfulValidationDto {
     ) : Entry, RichTextEntry
 
     data class LinkMimetypeGroupRule(
-        val linkMimetypeGroup: List<String>,
+        val linkMimetypeGroup: List<String>, // TODO: Implement Mimetype enum
         override val message: String? = null,
     ) : Asset
 
     data class AssetFileSizeRule(
-        val assetFileSize: Bounds<Long>,
+        val assetFileSize: Bounds<ULong>,
         override val message: String? = null,
     ) : Asset
 
@@ -724,18 +724,18 @@ sealed interface ContentfulValidationDto {
         override val message: String? = null,
     ) : Asset {
         data class Dimensions(
-            val width: Bounds<Int>? = null,
-            val height: Bounds<Int>? = null,
+            val width: Bounds<UInt>? = null,
+            val height: Bounds<UInt>? = null,
         )
     }
 
     data class EnabledMarksRule(
-        val enabledMarks: List<String>,
+        val enabledMarks: List<String>, // TODO: Implement Mark enum
         override val message: String? = null,
     ) : RichText
 
     data class EnabledNodeTypesRule(
-        val enabledNodeTypes: List<String>,
+        val enabledNodeTypes: List<String>, // TODO: Implement NodeType enum
         override val message: String? = null,
     ) : RichText
 
