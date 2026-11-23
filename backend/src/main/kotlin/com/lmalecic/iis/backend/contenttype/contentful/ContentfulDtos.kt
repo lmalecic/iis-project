@@ -3,6 +3,9 @@ package com.lmalecic.iis.backend.contenttype.contentful
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
+import com.lmalecic.iis.backend.contenttype.Mark
+import com.lmalecic.iis.backend.contenttype.Mimetype
+import com.lmalecic.iis.backend.contenttype.NodeType
 import java.math.BigDecimal
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -710,7 +713,7 @@ sealed interface ContentfulValidationDto {
     ) : Entry, RichTextEntry
 
     data class LinkMimetypeGroupRule(
-        val linkMimetypeGroup: List<String>, // TODO: Implement Mimetype enum
+        val linkMimetypeGroup: List<Mimetype>,
         override val message: String? = null,
     ) : Asset
 
@@ -730,12 +733,12 @@ sealed interface ContentfulValidationDto {
     }
 
     data class EnabledMarksRule(
-        val enabledMarks: List<String>, // TODO: Implement Mark enum
+        val enabledMarks: List<Mark>,
         override val message: String? = null,
     ) : RichText
 
     data class EnabledNodeTypesRule(
-        val enabledNodeTypes: List<String>, // TODO: Implement NodeType enum
+        val enabledNodeTypes: List<NodeType>,
         override val message: String? = null,
     ) : RichText
 

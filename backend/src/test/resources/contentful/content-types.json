@@ -2,7 +2,7 @@
   "sys": {
     "type": "Array"
   },
-  "total": 2,
+  "total": 1,
   "skip": 0,
   "limit": 100,
   "items": [
@@ -15,10 +15,10 @@
             "id": "hdkof0dh3xfy"
           }
         },
-        "id": "review",
+        "id": "fieldTypeSandbox",
         "type": "ContentType",
-        "createdAt": "2026-11-19T15:23:02.311Z",
-        "updatedAt": "2026-11-19T15:23:02.681Z",
+        "createdAt": "2026-11-19T20:32:36.620Z",
+        "updatedAt": "2026-11-22T17:20:29.248Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -26,9 +26,9 @@
             "linkType": "Environment"
           }
         },
-        "publishedVersion": 1,
-        "publishedAt": "2026-11-19T15:23:02.681Z",
-        "firstPublishedAt": "2026-11-19T15:23:02.681Z",
+        "publishedVersion": 39,
+        "publishedAt": "2026-11-22T17:20:29.248Z",
+        "firstPublishedAt": "2026-11-19T20:32:37.014Z",
         "createdBy": {
           "sys": {
             "type": "Link",
@@ -43,8 +43,8 @@
             "id": "032yVdGwGEgHSP110xiPuR"
           }
         },
-        "publishedCounter": 1,
-        "version": 2,
+        "publishedCounter": 19,
+        "version": 40,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -52,18 +52,335 @@
             "id": "032yVdGwGEgHSP110xiPuR"
           }
         },
-        "urn": "crn:contentful:::content:spaces/hdkof0dh3xfy/environments/master/content_types/review"
+        "urn": "crn:contentful:::content:spaces/hdkof0dh3xfy/environments/master/content_types/fieldTypeSandbox"
       },
-      "displayField": "text",
-      "name": "Review",
+      "displayField": "shortLabel",
+      "name": "Field Type Sandbox",
       "description": "",
       "fields": [
         {
-          "id": "game",
-          "name": "Game",
-          "type": "Link",
+          "id": "richBody",
+          "name": "Rich body",
+          "type": "RichText",
           "localized": false,
           "required": true,
+          "validations": [
+            {
+              "size": {
+                "min": 1,
+                "max": 10
+              }
+            },
+            {
+              "enabledMarks": [
+                "bold",
+                "italic",
+                "underline",
+                "code",
+                "superscript",
+                "subscript",
+                "strikethrough"
+              ],
+              "message": "Only bold, italic, underline, code, superscript, subscript, and strikethrough marks are allowed"
+            },
+            {
+              "enabledNodeTypes": [
+                "heading-1",
+                "heading-2",
+                "heading-3",
+                "heading-4",
+                "heading-5",
+                "heading-6",
+                "ordered-list",
+                "unordered-list",
+                "hr",
+                "blockquote",
+                "embedded-entry-block",
+                "embedded-asset-block",
+                "table",
+                "asset-hyperlink",
+                "embedded-entry-inline",
+                "entry-hyperlink",
+                "hyperlink"
+              ],
+              "message": "Only heading 1, heading 2, heading 3, heading 4, heading 5, heading 6, ordered list, unordered list, horizontal rule, quote, block entry, asset, table, link to asset, inline entry, link to entry, and link to Url nodes are allowed"
+            },
+            {
+              "nodes": {
+                "asset-hyperlink": [
+                  {
+                    "size": {
+                      "min": 1,
+                      "max": 100
+                    },
+                    "message": null
+                  }
+                ],
+                "embedded-asset-block": [
+                  {
+                    "size": {
+                      "min": 0,
+                      "max": 3
+                    },
+                    "message": null
+                  }
+                ],
+                "embedded-entry-block": [
+                  {
+                    "linkContentType": [
+                      "game",
+                      "review"
+                    ],
+                    "message": "Embed a Game entry."
+                  },
+                  {
+                    "size": {
+                      "min": 1,
+                      "max": 100
+                    },
+                    "message": null
+                  }
+                ],
+                "embedded-entry-inline": [
+                  {
+                    "size": {
+                      "min": 0,
+                      "max": 2
+                    },
+                    "message": null
+                  }
+                ],
+                "entry-hyperlink": [
+                  {
+                    "linkContentType": [
+                      "fieldTypeSandbox",
+                      "game"
+                    ],
+                    "message": null
+                  },
+                  {
+                    "size": {
+                      "min": 1,
+                      "max": 100
+                    },
+                    "message": null
+                  }
+                ]
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "shortLabel",
+          "name": "Short label",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "longNotes",
+          "name": "Long notes",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "shortTags",
+          "name": "Short tags",
+          "type": "Array",
+          "localized": true,
+          "required": false,
+          "validations": [
+            {
+              "size": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Symbol",
+            "validations": [
+              {
+                "size": {
+                  "min": 2,
+                  "max": 12
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "wholeScore",
+          "name": "Whole score",
+          "type": "Integer",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "range": {
+                "min": 0
+              },
+              "message": "Whole score must be greater or equal than minimum"
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "decimalScore",
+          "name": "Decimal score",
+          "type": "Number",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "range": {
+                "min": 0.25,
+                "max": 9.75
+              }
+            },
+            {
+              "in": [
+                1,
+                2,
+                3,
+                -3
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "sampleDate",
+          "name": "Sample date",
+          "type": "Date",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "dateRange": {
+                "after": null,
+                "before": null,
+                "min": "2026-11-01T00:30:12+00:00"
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "sampleLocation",
+          "name": "Sample location",
+          "type": "Location",
+          "localized": false,
+          "required": false,
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "coverAsset",
+          "name": "Cover asset",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "attachment",
+                "plaintext",
+                "image",
+                "audio",
+                "video",
+                "richtext",
+                "presentation",
+                "spreadsheet",
+                "pdfdocument",
+                "archive",
+                "code",
+                "markup",
+                "message"
+              ],
+              "message": "MIMETYPE NOT ALLOWED!"
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "galleryAssets",
+          "name": "Gallery assets",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "size": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkMimetypeGroup": [
+                  "image"
+                ]
+              }
+            ],
+            "linkType": "Asset"
+          }
+        },
+        {
+          "id": "featuredFlag",
+          "name": "Featured flag",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [],
+          "defaultValue": {
+            "en-US": false
+          },
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "extraJson",
+          "name": "Extra JSON",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "relatedGame",
+          "name": "Related game",
+          "type": "Link",
+          "localized": false,
+          "required": false,
           "validations": [
             {
               "linkContentType": [
@@ -76,169 +393,46 @@
           "linkType": "Entry"
         },
         {
-          "id": "text",
-          "name": "Text",
-          "type": "Text",
+          "id": "relatedGames",
+          "name": "Related games",
+          "type": "Array",
           "localized": false,
           "required": false,
           "validations": [
             {
               "size": {
-                "min": 0,
-                "max": 1000
-              }
-            }
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "rating",
-          "name": "Rating",
-          "type": "Integer",
-          "localized": false,
-          "required": true,
-          "validations": [
-            {
-              "range": {
                 "min": 1,
-                "max": 5
+                "max": 3
               }
             }
           ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "recommended",
-          "name": "Recommended",
-          "type": "Boolean",
-          "localized": false,
-          "required": true,
-          "validations": [],
-          "disabled": false,
-          "omitted": false
-        }
-      ]
-    },
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "hdkof0dh3xfy"
-          }
-        },
-        "id": "game",
-        "type": "ContentType",
-        "createdAt": "2026-11-19T15:16:57.035Z",
-        "updatedAt": "2026-11-19T15:16:57.476Z",
-        "environment": {
-          "sys": {
-            "id": "master",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "publishedVersion": 1,
-        "publishedAt": "2026-11-19T15:16:57.476Z",
-        "firstPublishedAt": "2026-11-19T15:16:57.476Z",
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "032yVdGwGEgHSP110xiPuR"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "032yVdGwGEgHSP110xiPuR"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 2,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "032yVdGwGEgHSP110xiPuR"
-          }
-        },
-        "urn": "crn:contentful:::content:spaces/hdkof0dh3xfy/environments/master/content_types/game"
-      },
-      "displayField": "title",
-      "name": "Game",
-      "description": "",
-      "fields": [
-        {
-          "id": "title",
-          "name": "Title",
-          "type": "Symbol",
-          "localized": false,
-          "required": true,
-          "validations": [],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "platforms",
-          "name": "Platforms",
-          "type": "Array",
-          "localized": false,
-          "required": true,
-          "validations": [],
           "disabled": false,
           "omitted": false,
           "items": {
-            "type": "Symbol",
+            "type": "Link",
             "validations": [
               {
-                "in": [
-                  "PC",
-                  "Console",
-                  "Mobile"
+                "linkContentType": [
+                  "game"
                 ]
               }
-            ]
+            ],
+            "linkType": "Entry"
           }
         },
         {
-          "id": "genres",
-          "name": "Genres",
-          "type": "Array",
+          "id": "test",
+          "name": "test",
+          "type": "Symbol",
           "localized": false,
           "required": false,
           "validations": [],
           "disabled": false,
-          "omitted": false,
-          "items": {
-            "type": "Symbol",
-            "validations": [
-              {
-                "in": [
-                  "Action",
-                  "Adventure",
-                  "Role-playing (RPG)",
-                  "Strategy",
-                  "Simulation",
-                  "Puzzle",
-                  "Platformer",
-                  "Shooter",
-                  "Fighting",
-                  "Racing",
-                  "Sports",
-                  "Horror"
-                ]
-              }
-            ]
-          }
+          "omitted": false
         },
         {
-          "id": "releaseDate",
-          "name": "Release date",
+          "id": "dateTimeTest",
+          "name": "DateTimeTest",
           "type": "Date",
           "localized": false,
           "required": false,
@@ -247,20 +441,10 @@
               "dateRange": {
                 "after": null,
                 "before": null,
-                "min": "1950-01-01"
+                "min": "2026-11-01"
               }
             }
           ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "multiplayer",
-          "name": "Multiplayer",
-          "type": "Boolean",
-          "localized": false,
-          "required": true,
-          "validations": [],
           "disabled": false,
           "omitted": false
         }
