@@ -4,8 +4,13 @@ spring:
   autoconfigure:
     exclude:
       - org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
-  flyway:
-    enabled: false
+  datasource:
+    url: "${SPRING_DB_URL}"
+    username: "${SPRING_DB_USERNAME}"
+    password: "${SPRING_DB_PASSWORD}"
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
   config:
     import: "optional:file:.env[.properties]"
 
