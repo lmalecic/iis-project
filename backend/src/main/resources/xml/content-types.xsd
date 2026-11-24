@@ -752,7 +752,7 @@
 
     <xs:complexType name="sizeRuleList">
         <xs:sequence>
-            <xs:element name="size" type="sizeRule" maxOccurs="unbounded"/>
+            <xs:element name="size" type="sizeRule"/>
         </xs:sequence>
     </xs:complexType>
 
