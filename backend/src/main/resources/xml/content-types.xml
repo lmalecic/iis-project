@@ -185,9 +185,9 @@
             </assetArrayField>
             <booleanField id="featuredFlag" required="false" localized="false" disabled="false" omitted="false">
                 <name>Featured flag</name>
-                <defaults>
+                <defaultValues>
                     <value locale="en-US">false</value>
-                </defaults>
+                </defaultValues>
             </booleanField>
             <objectField id="extraJson" required="false" localized="false" disabled="false" omitted="false">
                 <name>Extra JSON</name>
